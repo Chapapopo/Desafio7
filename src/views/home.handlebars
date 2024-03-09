@@ -1,0 +1,41 @@
+<form action="/" method="GET">
+  <label for="marca">Filtrar por marca:</label>
+  <select name="marca" id="marca">
+    <option value="">Todas las marcas</option>
+    <option value="UB">UB</option>
+    <option value="havaianas">Havaianas</option>
+  </select>
+  
+  <label for="orden">Ordenar por precio:</label>
+  <select name="orden" id="orden">
+    <option value="asc">Ascendente</option>
+    <option value="desc">Descendente</option>
+  </select>
+  
+  <button type="submit">Filtrar y ordenar</button>
+</form>
+
+<h1>Lista de Productos</h1>
+<ul>
+  {{#each productos}}
+    <li>{{this.titulo}} - {{this.descripcion}} ({{this.marca}}) - ${{this.precio}} - 
+      Cantidad: {{this.cantidad}} - Categoría: {{this.categoria}}
+    <a href="/productos/{{this.id}}" class="btn btn-primary">Ver Producto</a>
+    <a href="#" class="btn btn-primary agregar-carrito" data-id="{{this.id}}">Agregar al carrito</a>
+</li>
+  {{/each}}
+</ul>
+
+{{#if pagination.hasPrevPage}}
+  <a href="?page={{pagination.prevPage}}&limit={{pagination.limit}}&marca={{marca}}&orden={{orden}}">Anterior</a>
+{{/if}}
+
+{{#if pagination.hasNextPage}}
+  <a href="?page={{pagination.nextPage}}&limit={{pagination.limit}}&marca={{marca}}&orden={{orden}}">Siguiente</a>
+{{/if}}
+
+{{>carrito}}
+
+{{>logout}}
+
+{{>user}}

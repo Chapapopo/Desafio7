@@ -1,0 +1,26 @@
+<!-- logout.handlebars -->
+<form id="logoutForm" action="/logout" method="POST">
+    <button type="submit">Cerrar sesión</button>
+</form>
+
+<script>
+    document.getElementById('logoutForm').addEventListener('submit', function(event) {
+        // Evita que el formulario se envíe de forma normal
+        event.preventDefault();
+
+        // Envía el formulario de forma manual
+        fetch('/logout', { method: 'POST' })
+            .then(response => {
+                if (response.ok) {
+                    // Redirige a la página de login después de cerrar sesión
+                    window.location.href = '/log';
+                } else {
+                    console.error('Error al cerrar sesión:', response.statusText);
+                    // Manejar el error de logout aquí si es necesario
+                }
+            })
+            .catch(error => {
+                console.error('Error al cerrar sesión:', error);
+            });
+    });
+</script>

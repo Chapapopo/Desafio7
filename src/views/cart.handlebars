@@ -1,0 +1,41 @@
+<form id="filterForm">
+  <label for="marca">Filtrar por marca:</label>
+  <select name="marca" id="marca">
+    <option value="">Todas las marcas</option>
+    <option value="UB">UB</option>
+    <option value="havaianas">Havaianas</option>
+  </select>
+
+  <label for="orden">Ordenar por precio:</label>
+  <select name="orden" id="orden">
+    <option value="asc">Ascendente</option>
+    <option value="desc">Descendente</option>
+  </select>
+
+  <button type="submit">Filtrar y ordenar</button>
+</form>
+
+<h1>Lista de Productos</h1>
+<ul>
+  {{#each carrito}}
+  <li>{{this.titulo}} - {{this.descripcion}} ({{this.marca}}) - ${{this.precio}} -
+    Cantidad: {{this.cantidad}} - Categoría: {{this.categoria}}
+  </li>
+  {{/each}}
+</ul>
+
+{{>logout}}
+
+{{>user}}
+
+<script>
+  document.getElementById('filterForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Evitar que se envíe el formulario normalmente
+    
+    const marca = document.getElementById('marca').value;
+    const orden = document.getElementById('orden').value;
+    const url = `http://localhost:8080/carts/552?marca=${marca}&orden=${orden}`;
+    
+    window.location.href = url; // Redirigir a la URL construida
+  });
+</script>
